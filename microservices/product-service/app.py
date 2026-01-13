@@ -5,3 +5,5 @@ def products():
     return jsonify({"service": "Product"})
 app.run(host="0.0.0.0", port=5002)
 # CI trigger comment
+
+# CI trigger
