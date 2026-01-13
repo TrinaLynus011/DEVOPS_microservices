@@ -1,0 +1,21 @@
+﻿name: Order Service CI
+
+on:
+  push:
+    paths:
+      - "microservices/order-service/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build order service
+        run: docker build -t order-service ./microservices/order-service
+
+      - name: Run & test
+        run: |
+          docker run -d -p 5003:5003 order-service
+          sleep 5
+          curl http://localhost:5003/orders
