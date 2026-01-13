@@ -2,8 +2,6 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 @app.route("/products")
 def products():
-    return jsonify({"service": "Product"})
-app.run(host="0.0.0.0", port=5002)
-# CI trigger comment
+    return jsonify({"service": "Product Service CI TRIGGERED"})
 
-# CI trigger
+app.run(host="0.0.0.0", port=5002)

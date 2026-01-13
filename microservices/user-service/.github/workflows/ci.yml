@@ -1,11 +1,21 @@
 name: User Service CI
-on: [push]
-jobs:
-    build:
-        runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v4
-            - name: Build User Service Docker Image
-             run: docker build -t user-service ./user-service
+on:
+  push:
+    paths:
+      - "microservices/user-service/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build user service
+        run: docker build -t user-service ./microservices/user-service
+
+      - name: Run & test
+        run: |
+          docker run -d -p 5001:5001 user-service
+          sleep 5
+          curl http://localhost:5001/users
